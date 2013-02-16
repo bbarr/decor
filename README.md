@@ -1,18 +1,17 @@
 ##Example:
-___
 
 ```javascript
 define(function(require) {
   
   var Decor = require('Decor');
 
-  function BookPresenter(book) {
+  function BookDecor(book) {
     Decor.call(this, book);
     
     this.delegate('title', 'pages', /^find/);
   };
 
-  BookPresenter.prototype = {
+  BookDecor.prototype = {
 
     titleAcronym: function() {
       this.title
@@ -48,20 +47,20 @@ define(function(require) {
     findFirstChar: function() { return this.text().charAt(0); }
   });
 
-  book = new BookPresenter(book);
+  bookDecor = new BookDecor(bookModel);
 
   // book can access properties of its source, as well as its own methods
-  book.title //=> 'War and Peace'
-  book.titleAcronym() //=> 'WAP'
-  book.averageWordsPerPage() //=> '3'
+  bookDecor.title //=> 'War and Peace'
+  bookDecor.titleAcronym() //=> 'WAP'
+  bookDecor.averageWordsPerPage() //=> '3'
 
   // book has access to methods that match regexp
-  book.findFirstWord() //=> 'some'
+  bookDecor.findFirstWord() //=> 'some'
 
   // book sets source property, using custom setter
-  book.title = 'War, what is it good for?';
+  bookDecor.title = 'War, what is it good for?';
   bookModel.title //=> 'War, what is it good for?')
 
   // book gets source property, using custom getter
   bookModel.title = 'Another Title';
-  book.title //=> 'Another Title';
+  bookDecor.title //=> 'Another Title';
