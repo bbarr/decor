@@ -1,4 +1,6 @@
-Example:
+##Example:
+___
+
 ```javascript
 define(function(require) {
   
@@ -31,7 +33,7 @@ define(function(require) {
     } 
   };
 
-  bookModel = new book({ title: 'War and Peace', pages: [ { text: 'some words here' }, { text: 'more words now' } ] })
+  bookModel = new Book({ title: 'War and Peace', pages: [ { text: 'some words here' }, { text: 'more words now' } ] })
   book = new BookPresenter(book)
 
   book.title() => 'War and Peace'
@@ -40,5 +42,3 @@ define(function(require) {
 
   book.title('War, what is it good for?')
   bookModel.title() => 'War, what is it good for?')
-
-*/
