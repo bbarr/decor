@@ -38,6 +38,29 @@ require [ 'lib/decor.js' ], (Decor) ->
 
       describe 'a string that references a non-function', ->
 
+        it 'should try to define getter linked to source property', ->
+          spyOn(decorated, '__defineGetter__').andCallThrough()
+          decorated.delegate('prop_x')
+          expect(decorated.__defineGetter__).toHaveBeenCalled()
+
+        it 'should try to define setter linked to source property', ->
+          spyOn(decorated, '__defineSetter__').andCallThrough()
+          decorated.delegate('prop_x')
+          expect(decorated.__defineSetter__).toHaveBeenCalled()
+
+        it 'should keep in sync with source changes', ->
+          decorated.delegate('prop_x')
+          expect(decorated.prop_x).toBe(obj.prop_x)
+          obj.prop_x = 1
+          expect(decorated.prop_x).toBe(obj.prop_x)
+
+        it 'should update source', ->
+          decorated.delegate('prop_x')
+          expect(decorated.prop_x).toBe(obj.prop_x)
+          decorated.prop_x = 1
+          expect(decorated.prop_x).toBe(obj.prop_x)
+
+
     describe '#_delegateByRegExp', ->
 
       it 'should call #_delegateByString for any source key that matches regex', ->
@@ -55,6 +78,7 @@ require [ 'lib/decor.js' ], (Decor) ->
         foo_bar: (->)
         foo_bat: (->)
         foo_baz: (->)
+        prop_x: 0
 
     describe 'as simple constructor', ->
 
